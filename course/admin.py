@@ -5,11 +5,15 @@ from . import models
 from django.utils.html import format_html
 
 # Register your models here.
+class LessonInline(admin.StackedInline):
+    model = models.lessonModel
+    extra = 0
 @admin.register(models.CourseModel)
 class CouserAdmin(admin.ModelAdmin):
     list_display = ['title','access','status']
     fields = ['title','description','image','access','status','image_perview']
     list_per_page = 10
+    inlines = [LessonInline,]
     readonly_fields = ['image_perview']
 
     def image_perview(self,obj):
