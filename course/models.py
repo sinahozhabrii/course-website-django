@@ -98,7 +98,7 @@ class lessonModel(models.Model):
     title = models.CharField(max_length=120)
     description = models.TextField()
     public_id = models.CharField(max_length=130,blank=True,null=True)
-    image = CloudinaryField('image',blank=True,null=True,
+    thumbnail = CloudinaryField('image',blank=True,null=True,
                             
                             public_id_prefix=get_public_id_prefix,
 
@@ -110,7 +110,11 @@ class lessonModel(models.Model):
                             
                             public_id_prefix=get_public_id_prefix,
 
-                            display_name=get_display_name)
+                            display_name=get_display_name,
+
+                            type = 'private'
+                            
+                            )
     
     can_preview = models.BooleanField(default=False,help_text='if user do not have access to course can they see this?')
     status = models.CharField(max_length=7,choices=PublishStatus.choices,default=PublishStatus.DRAFT)
