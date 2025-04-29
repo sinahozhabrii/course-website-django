@@ -8,13 +8,15 @@ from django.utils.html import format_html
 class LessonInline(admin.StackedInline):
     model = models.lessonModel
     extra = 0
+    readonly_fields = ['public_id']
+    
 @admin.register(models.CourseModel)
 class CouserAdmin(admin.ModelAdmin):
     list_display = ['title','access','status']
-    fields = ['title','description','image','access','status','image_perview']
+    fields = ['public_id','title','description','image','access','status','image_perview']
     list_per_page = 10
     inlines = [LessonInline,]
-    readonly_fields = ['image_perview']
+    readonly_fields = ['image_perview','public_id']
 
     def image_perview(self,obj):
         image_url = obj.image.url
