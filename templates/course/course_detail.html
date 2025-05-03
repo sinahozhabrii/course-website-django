@@ -1,0 +1,9 @@
+{%extends '_base.html'%}
+{%block title%} Course Detail {%endblock title%}
+
+{%block content%}
+ <h3> {{course.title}} </h3>
+ {%for lesson in lessons%}
+    <a href='{{lesson.path}}'>{{lesson.title}}</a>
+ {%endfor%}
+{%endblock content%}
