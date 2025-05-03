@@ -94,7 +94,7 @@ class CourseModel(models.Model):
         super().save(*args, **kwargs)
     
 class lessonModel(models.Model):
-    course = models.ForeignKey(CourseModel,on_delete=models.CASCADE)
+    course = models.ForeignKey(CourseModel,on_delete=models.CASCADE,related_name='lesson_set')
     title = models.CharField(max_length=120)
     description = models.TextField()
     public_id = models.CharField(max_length=130,blank=True,null=True)
