@@ -16,8 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-
+from emails import views
 urlpatterns = [
+    path('',views.email_validation_view,name='home'),
     path('admin/', admin.site.urls),
-    path('course/',include("course.urls"))
+    path('course/',include("course.urls")),
+    path('',include('emails.urls'))
 ]
