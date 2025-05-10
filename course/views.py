@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from . import services
 from . import models
 import helpres
@@ -22,11 +22,16 @@ def course_detail_view(request,course_public_id):
 def lesson_detail_view(request,course_public_id,lesson_public_id):
     lesson_obj = services.get_lesson_detail(course_public_id,lesson_public_id)
 
+    if lesson_obj.email_required and not request.session.get('email_id'):
+        request.session['next_url'] = lesson_obj.path
+        return redirect('login')
+
     template_name= 'course/lesson_detail_comingsoon.html'
 
     if lesson_obj.status == models.PublishStatus.PUBLISHED:
         template_name = 'course/lesson_detail.html'
-
+    email_id = request.session.get('email_id')
+    print(email_id)
     # return JsonResponse({'id':lesson_obj.id})
     video_html = helpres.get_cloudinary_video_obj(lesson_obj,as_html=True,field_name='video',width=1250 )
     return render(request,template_name,{'lesson':lesson_obj,'video_html':video_html})

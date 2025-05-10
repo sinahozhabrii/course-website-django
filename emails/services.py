@@ -37,15 +37,15 @@ def verifiction_email_msg(obj,as_html=False):
 def verifey_token(token,max_attempts=5):
     qs = models.EmailVerificationEvent.objects.filter(token=token)
     if not qs.exists() or not qs.count() ==1:
-        return False, 'invalid token'
+        return False, 'invalid token',None
     
     has_token_expired = qs.filter(expired=True)
     if has_token_expired.exists():
-        return False, 'token expired, try again'
+        return False, 'token expired, try again',None
     
     max_attempts_reached = qs.filter(attempts__gte=max_attempts)
     if max_attempts_reached.exists():
-        return False, 'token expired, max attempts reached'
+        return False, 'token expired, max attempts reached',None
     
     obj = qs.first()
     if obj is None:
@@ -57,5 +57,5 @@ def verifey_token(token,max_attempts=5):
         obj.expired_at = timezone.now()
     obj.save()
 
-    return True, 'welcome'
+    return True, 'welcome',obj.pk
     

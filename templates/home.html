@@ -3,10 +3,6 @@
 {%block title%} Home {% endblock title%}
 
 {%block content%}
- <form method='post' action=''>
-    {% csrf_token %}
-    {{form.as_p}}
-    <input type='submit' value='log in'>
- </form>   
+<div hx-get='/hx/login/' hx-trigger='load'>
 {%endblock content%}
 

@@ -1,3 +1,4 @@
+from asyncio import proactor_events
 from typing import Iterable
 from django.db import models
 from cloudinary.models import CloudinaryField
@@ -118,6 +119,7 @@ class lessonModel(models.Model):
     
     can_preview = models.BooleanField(default=False,help_text='if user do not have access to course can they see this?')
     status = models.CharField(max_length=7,choices=PublishStatus.choices,default=PublishStatus.DRAFT)
+    access = models.CharField(max_length=5,choices=AccessRequirements.choices,default=AccessRequirements.EMAIL_REQUIRED)
     ordering = models.IntegerField(default=0)
     datetime_created = models.DateTimeField(auto_now_add=True)
     datetime_updated = models.DateTimeField(auto_now=True)
@@ -141,3 +143,7 @@ class lessonModel(models.Model):
     
     def get_absolute_url(self):
         return self.path
+    
+    @property
+    def email_required(self):
+        return self.access == AccessRequirements.EMAIL_REQUIRED

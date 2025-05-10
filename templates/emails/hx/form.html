@@ -1,0 +1,13 @@
+{%if show_form%}
+    {%if messages %}
+    {{messages}}
+    {% else %}
+    <form hx-post='/hx/login/' method='post' action=''>
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type='submit' value='log in'>
+    </form>
+    {% endif %} 
+{% else %}
+<div hx-get='/hx/logout/' hx-trigger='load'></div>
+{% endif %}
