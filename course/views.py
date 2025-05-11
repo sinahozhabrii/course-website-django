@@ -24,7 +24,7 @@ def lesson_detail_view(request,course_public_id,lesson_public_id):
 
     if lesson_obj.email_required and not request.session.get('email_id'):
         request.session['next_url'] = lesson_obj.path
-        return redirect('login')
+        return redirect('/login')
 
     template_name= 'course/lesson_detail_comingsoon.html'
 

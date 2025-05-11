@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import include, path
 from emails import views
 urlpatterns = [
-    path('',views.home_view,name='login'),
+    path('',views.home_view,name='home'),
     path('admin/', admin.site.urls),
     path('course/',include("course.urls")),
     path('',include('emails.urls'))

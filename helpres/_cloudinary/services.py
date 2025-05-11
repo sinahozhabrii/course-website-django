@@ -1,4 +1,5 @@
 from django.template.loader import get_template
+from config import settings
 
 def get_cloudinary_image_obj(instance,as_html=False,width=500,field_name='image'):
 
@@ -39,6 +40,7 @@ def get_cloudinary_video_obj(instance,as_html=False,width=500,field_name='video'
     if as_html:
         template_name = 'video/embed/embed.html'
         template = get_template(template_name)
-        _html = template.render({'video_url':url})
+        cloud_name = settings.CLOUD_NAME
+        _html = template.render({'video_url':url,'cloud_name':cloud_name})
         return _html
     return url

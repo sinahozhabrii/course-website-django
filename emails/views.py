@@ -7,12 +7,16 @@ from . import services
 from django.contrib import messages
 # Create your views here.
 
+def login_logout_view(request):
+    return render(request,'auth/login-logout.html',{})
+
 def logout_view(request):
     if not request.htmx:
         return redirect('/')
     if request.method == 'POST':
         try:
             del request.session['email_id']
+            del request.session['next_url']
         except:
             pass
     email_id = request.session.get('email_id')
@@ -46,6 +50,7 @@ def verifey_email_token_view(request,token):
     if not did_verifey:
         try:
             del request.session['email_id']
+            del request.session['next_url']
         except:
             pass
         return HttpResponse(msg)
