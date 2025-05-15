@@ -51,9 +51,16 @@ def get_display_name(instance):
     instance_class = instance.__class__
     instance_class_name = instance_class.__name__
     return f'{instance_class_name}-upload'
+
+class CourseSubject(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField(blank=True,null=True)
+    def __str__(self):
+        return self.title
 class CourseModel(models.Model):
     title = models.CharField(max_length=120)
     description = models.TextField(blank=True,null=True)
+    subject = models.ForeignKey(CourseSubject,on_delete=models.PROTECT,related_name='courses',)
     public_id = models.CharField(max_length=130,blank=True,null=True)
     image = CloudinaryField('image',blank=True,null=True,
                             
@@ -87,6 +94,11 @@ class CourseModel(models.Model):
     def get_absolute_url(self):
         return self.path
     
+    @property
+    def display_image(self):
+        image_url = helpres.get_cloudinary_image_obj(self,as_html=False,field_name='image')
+       
+        return image_url
 
 
     def save(self,*args, **kwargs):
@@ -147,3 +159,8 @@ class lessonModel(models.Model):
     @property
     def email_required(self):
         return self.access == AccessRequirements.EMAIL_REQUIRED
+    @property
+    def display_image(self):
+        image_url = helpres.get_cloudinary_image_obj(self,as_html=False,field_name='thumbnail',width=200,height=200)
+       
+        return image_url

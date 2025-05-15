@@ -23,7 +23,7 @@ class LessonInline(admin.StackedInline):
 @admin.register(models.CourseModel)
 class CouserAdmin(admin.ModelAdmin):
     list_display = ['title','access','status']
-    fields = ['public_id','title','description','image','access','status','display_image']
+    fields = ['public_id','title','description','subject','image','access','status','display_image']
     list_per_page = 10
     inlines = [LessonInline,]
     readonly_fields = ['display_image','public_id']
@@ -32,3 +32,8 @@ class CouserAdmin(admin.ModelAdmin):
         image_url = helpres.get_cloudinary_image_obj(obj,as_html=False,width=300,field_name='image',)
        
         return format_html(f"<image src={image_url} />")
+    
+@admin.register(models.CourseSubject)
+class CourseSubjectAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    

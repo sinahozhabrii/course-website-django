@@ -4,6 +4,7 @@ from django.shortcuts import redirect, render
 from . import forms
 from . import models
 from . import services
+from course import services as course_services
 from django.contrib import messages
 # Create your views here.
 
@@ -61,6 +62,5 @@ def verifey_email_token_view(request,token):
     return redirect(next_url)
 
 def home_view(request):
-    email_id = request.session.get('email_id')
-    print(email_id)
-    return render(request,'home.html')
+    course_list = course_services.get_course_list()
+    return render(request,'home.html',{'courses':course_list})

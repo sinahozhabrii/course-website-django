@@ -1,50 +1,49 @@
+{%load static%}
 {% load django_htmx %}
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cloudinary-video-player/2.0.5/cld-video-player.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/cloudinary-video-player/2.0.5/cld-video-player.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://unpkg.com/htmx.org@2.0.2" integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ" crossorigin="anonymous"></script>
+
+<script src="{% static 'js/vendor/modernizr-3.5.0.min.js' %}"></script>
+<!-- Jquery, Popper, Bootstrap -->
+<script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<!-- Jquery Mobile Menu -->
+<script src="{% static 'js/jquery.slicknav.min.js' %}"></script>
+
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'js/slick.min.js' %}"></script>
+<!-- One Page, Animated-HeadLin -->
+<script src="{% static 'js/wow.min.js' %}"></script>
+<script src="{% static 'js/animated.headline.js' %}"></script>
+<script src="{% static 'js/jquery.magnific-popup.js' %}"></script>
+
+<!-- Date Picker -->
+<script src="{% static 'js/gijgo.min.js' %}"></script>
+<!-- Nice-select, sticky -->
+<script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+<script src="{% static 'js/jquery.sticky.js' %}"></script>
+<!-- Progress -->
+<script src="{% static 'js/jquery.barfiller.js' %}"></script>
+
+<!-- counter , waypoint,Hover Direction -->
+<script src="{% static 'js/jquery.counterup.min.js' %}"></script>
+<script src="{% static 'js/waypoints.min.js' %}"></script>
+<script src="{% static 'js/jquery.countdown.min.js' %}"></script>
+<script src="{% static 'js/hover-direction-snake.min.js' %}"></script>
+
+<!-- contact js -->
+<script src="{% static 'js/contact.js' %}"></script>
+<script src="{% static 'js/jquery.form.js' %}"></script>
+<script src="{% static 'js/jquery.validate.min.js' %}"></script>
+
+<script src="{% static 'js/mail-script.js' %}"></script>
+<script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
+
+<!-- Jquery Plugins, main Jquery -->	
+<script src="{% static 'js/plugins.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
 {% django_htmx_script %}
 
-<script defer>
-    // این تابع برای رندر کردن ویدیوهای Cloudinary است
-    function renderVideoElement(videoPlayerElement) {
-        const currentVideoId = videoPlayerElement.getAttribute('id')
-        const videoPlayerId = `${currentVideoId}` + '-cfe-' + Math.random().toString(36).substr(2, 9);
-        videoPlayerElement.setAttribute("id", videoPlayerId);
-        const cloudName = videoPlayerElement.dataset.cloudName;
-        const videoUrl = videoPlayerElement.dataset.videoUrl;
 
-        if (cloudName && videoUrl) {
-            const cld = cloudinary.videoPlayer(videoPlayerId, {
-                cloudName: cloudName
-            });
-
-            cld.source(videoUrl);
-
-            // اضافه کردن دکمه تغییر کیفیت به پلیر
-            cld.addButton('quality', {
-                title: 'Change Quality',
-                options: ['auto', '360p', '480p', '720p', '1080p'], // اینجا می‌تونید کیفیت‌های مختلف رو اضافه کنید
-                default: 'auto', // کیفیت پیش‌فرض
-                onChange: function(selectedQuality) {
-                    // تغییر ویدیو با کیفیت جدید
-                    let newVideoUrl = videoUrl.replace('auto', selectedQuality);  // فرض می‌کنیم URL شما به این شکل است
-                    cld.source(newVideoUrl);
-                }
-            });
-        }
-    }
-
-    function renderAllVideos() {
-        const videoPlayerClassName = 'cfe-video';
-        const videoPlayerElements = document.getElementsByClassName(videoPlayerClassName);
-        console.log(videoPlayerElements);
-        for (let el of videoPlayerElements) {
-            console.log(el);
-            renderVideoElement(el);
-        }
-    }
-
-    // فراخوانی تابع بعد از بارگذاری کامل صفحه
-    document.addEventListener('DOMContentLoaded', renderAllVideos);
-</script>
