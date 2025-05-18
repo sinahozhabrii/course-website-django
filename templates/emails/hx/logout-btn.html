@@ -1,4 +1,12 @@
+
 <form hx-post='/hx/logout/' method='post' action=''>
-    {% csrf_token %}
-    <input type='submit' value='logout'>
+    {%csrf_token%}
+      <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+        <div class="login-form text-center">
+            <h4 class="mb-4 text-light">You're already authenticated.</h4>
+            <button type="submit" class="btn btn-primary w-100">
+                Log Out
+            </button>
+        </div>
+    </div>
 </form>

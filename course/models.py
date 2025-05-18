@@ -99,6 +99,9 @@ class CourseModel(models.Model):
         image_url = helpres.get_cloudinary_image_obj(self,as_html=False,field_name='image')
        
         return image_url
+    @property
+    def email_required(self):
+        return self.access == AccessRequirements.EMAIL_REQUIRED
 
 
     def save(self,*args, **kwargs):

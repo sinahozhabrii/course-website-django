@@ -3,21 +3,29 @@ from django.shortcuts import redirect, render
 from . import services
 from . import models
 import helpres
+from django.core.paginator import Paginator
 
 # Create your views here.
 def course_list_view(request):
     courses = services.get_course_list()
     
     # return JsonResponse({'id':[x.path for x in courses]})
-    return render(request,'course/course_list.html',{'courses':courses})
+    paginator = Paginator(courses, 2)  
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request,'course/course_list.html',{'courses':page_obj})
+
 
 def course_detail_view(request,course_public_id):
     course_obj = services.get_course_detail(course_public_id)
     lessons = services.get_course_lessons(course_obj)
-
+    template = 'course/course_detail.html'
+    if course_obj.email_required and not request.session.get('email_id'):
+        request.session['next_url'] = course_obj.path
+        template = 'course/course_email_req.html'
     # return JsonResponse({'course_id':course_obj.id,'lesson_path':[x.id for x in lessons]},safe=False)
 
-    return render(request,'course/course_detail.html',{'course':course_obj,'lessons':lessons})
+    return render(request,template,{'course':course_obj,'lessons':lessons})
 
 def lesson_detail_view(request,course_public_id,lesson_public_id):
     lesson_obj = services.get_lesson_detail(course_public_id,lesson_public_id)

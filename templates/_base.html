@@ -28,9 +28,8 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>{%block title%}{%endblock title%}</title>
 </head>
-    {%block content%}
+{%block content%}
 
-    {%endblock content%}
-    {% include 'js.html' %}
-  
+{%endblock content%}
+{% include 'js.html' %}
 </html>

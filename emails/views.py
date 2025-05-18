@@ -32,6 +32,7 @@ def email_validation_view(request):
         context = {'form':forms.EmailForm(),
                    'messages' : None,
                    'show_form': not email_id,
+                   'request':request,
                    }
         if request.method == 'POST':
             form = forms.EmailForm(request.POST)
