@@ -34,11 +34,12 @@ def get_public_id_prefix(instance):
         if path.endswith('/'):
             path = path[:-1]
         return path
-    public_id = instance.public_id
     instance_class = instance.__class__
     instance_class_name = instance_class.__name__
     model_name_slug = slugify(instance_class_name)
-    if not public_id:
+    try:
+        public_id = instance.public_id
+    except:
         return f'{model_name_slug}'
     return f'{model_name_slug}/{public_id}'
 

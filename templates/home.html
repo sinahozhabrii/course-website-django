@@ -36,17 +36,13 @@
                                                 <li class="active" ><a href="{%url 'home'%}">Home</a></li>
                                                 <li><a href="{%url 'course-list'%}">Courses</a></li>
                                                 <li><a href="about.html">About</a></li>
-                                                <li><a href="#">Blog</a>
-                                                    <ul class="submenu">
-                                                        <li><a href="blog.html">Blog</a></li>
-                                                        <li><a href="blog_details.html">Blog Details</a></li>
-                                                        <li><a href="elements.html">Element</a></li>
-                                                    </ul>
-                                                </li>
                                                 <li><a href="contact.html">Contact</a></li>
                                                 <!-- Button -->
-                                                <li class="button-header margin-left "><a href="#" class="btn">Join</a></li>
-                                                <li class="button-header"><a href="login.html" class="btn btn3">Log in</a></li>
+                                                {%if not request.session.email_id%}
+                                                <li class="button-header margin-left "><a href="{% url 'login'%}" class="btn">Register</a></li>
+                                                {%else%}
+                                                <li class="button-header"><a href="{%url 'logout'%}" class="btn btn-danger">LogOut</a></li>
+                                                {%endif%}
                                             </ul>
                                         </nav>
                                     </div>
@@ -261,102 +257,20 @@
         </div>
       </div>
       <div class="row">
+        {%for subject in subjects%}
         <div class="col-lg-3 col-md-4 col-sm-6">
           <div class="single-topic text-center mb-30">
             <div class="topic-img">
-              <img src="{% static 'img/gallery/topic1.png' %}" alt="" />
+              <img src="{{subject.display_image}}" alt="" />
               <div class="topic-content-box">
                 <div class="topic-content">
-                  <h3><a href="{%url 'course-list-subject' 'web-dev' %}">Web Dev</a></h3>
+                  <h3><a href="{%url 'course-list-subject' subject.title %}">{{subject.title}}</a></h3>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-lg-3 col-md-4 col-sm-6">
-          <div class="single-topic text-center mb-30">
-            <div class="topic-img">
-              <img src="{% static 'img/gallery/topic2.png' %}" alt="" />
-              <div class="topic-content-box">
-                <div class="topic-content">
-                  <h3><a href="#">Programing</a></h3>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6">
-          <div class="single-topic text-center mb-30">
-            <div class="topic-img">
-              <img src="{% static 'img/gallery/topic3.png' %}" alt="" />
-              <div class="topic-content-box">
-                <div class="topic-content">
-                  <h3><a href="#">Programing</a></h3>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6">
-          <div class="single-topic text-center mb-30">
-            <div class="topic-img">
-              <img src="{% static 'img/gallery/topic4.png' %}" alt="" />
-              <div class="topic-content-box">
-                <div class="topic-content">
-                  <h3><a href="#">Programing</a></h3>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6">
-          <div class="single-topic text-center mb-30">
-            <div class="topic-img">
-              <img src="{% static 'img/gallery/topic5.png' %}" alt="" />
-              <div class="topic-content-box">
-                <div class="topic-content">
-                  <h3><a href="#">Programing</a></h3>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6">
-          <div class="single-topic text-center mb-30">
-            <div class="topic-img">
-              <img src="{% static 'img/gallery/topic6.png' %}" alt="" />
-              <div class="topic-content-box">
-                <div class="topic-content">
-                  <h3><a href="#">Programing</a></h3>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6">
-          <div class="single-topic text-center mb-30">
-            <div class="topic-img">
-              <img src="{% static 'img/gallery/topic7.png' %}" alt="" />
-              <div class="topic-content-box">
-                <div class="topic-content">
-                  <h3><a href="#">Programing</a></h3>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6">
-          <div class="single-topic text-center mb-30">
-            <div class="topic-img">
-              <img src="{% static 'img/gallery/topic8.png' %}" alt="" />
-              <div class="topic-content-box">
-                <div class="topic-content">
-                  <h3><a href="#">Programing</a></h3>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        {%endfor%}
       </div>
       <div class="row justify-content-center">
         <div class="col-xl-12">

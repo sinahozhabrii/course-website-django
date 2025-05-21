@@ -63,5 +63,5 @@ def verifey_email_token_view(request,token):
     return redirect(next_url)
 
 def home_view(request):
-    course_list = course_services.get_course_list()
-    return render(request,'home.html',{'courses':course_list})
+    course_list,subjects = course_services.get_course_list()
+    return render(request,'home.html',{'courses':course_list,'subjects':subjects})

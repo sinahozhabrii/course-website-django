@@ -7,20 +7,20 @@ from django.core.paginator import Paginator
 
 # Create your views here.
 def course_list_view(request):
-    courses = services.get_course_list()
+    courses,subjects = services.get_course_list()
     
     # return JsonResponse({'id':[x.path for x in courses]})
     paginator = Paginator(courses, 6)  
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request,'course/course_list.html',{'courses':page_obj})
+    return render(request,'course/course_list.html',{'courses':page_obj,"subjects":subjects})
 
 def course_list_subject_view(request,subject):
-    courses = services.get_course_subject_list(subject)
+    courses,subjects = services.get_course_subject_list(subject)
     paginator = Paginator(courses, 6)  
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request,'course/course_list.html',{'courses':page_obj})
+    return render(request,'course/course_list.html',{'courses':page_obj,'subjects':subjects})
     
     # return JsonResponse({'id':[x.path for x in courses]})
     paginator = Paginator(courses, 6)  
