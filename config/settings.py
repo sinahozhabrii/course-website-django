@@ -24,9 +24,9 @@ BASE_DOMAIN = 'http://127.0.0.1:8000/'
 SECRET_KEY = 'django-insecure-_!*e=t%7!&l^qb#=2u0ah2amsqsro=hb^qm%ix^nw2ni5iilv3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = config("EMAIL_HOST", cast=str, default=None)

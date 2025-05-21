@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.conf.urls import handler404
+from . import views as config_views
 from emails import views
 urlpatterns = [
     path('',views.home_view,name='home'),
@@ -23,3 +25,5 @@ urlpatterns = [
     path('course/',include("course.urls")),
     path('',include('emails.urls'))
 ]
+
+handler404 = config_views.custom_404_view

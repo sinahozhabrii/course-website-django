@@ -78,7 +78,7 @@
                   from world-class universities and companies
                 </p>
                 <a
-                  href="#"
+                  href="{%url 'login'%}"
                   class="btn hero-btn"
                   data-animation="fadeInLeft"
                   data-delay="0.7s"
@@ -101,7 +101,7 @@
               <img src="{% static 'img/icon/icon1.svg' %}" alt="" />
             </div>
             <div class="features-caption">
-              <h3>60+ UX courses</h3>
+              <h3>{{courses.count}}+ courses</h3>
               <p>The automated process all your website tasks.</p>
             </div>
           </div>
@@ -234,13 +234,6 @@
         <div class="right-img">
           <img src="{% static 'img/gallery/about.png' %}" alt="" />
 
-          <div class="video-icon">
-            <a
-              class="popup-video btn-icon"
-              href="https://www.youtube.com/watch?v=up68UAfH0d0"
-              ><i class="fas fa-play"></i
-            ></a>
-          </div>
         </div>
       </div>
     </div>
@@ -275,7 +268,6 @@
       <div class="row justify-content-center">
         <div class="col-xl-12">
           <div class="section-tittle text-center mt-20">
-            <a href="courses.html" class="border-btn">View More Subjects</a>
           </div>
         </div>
       </div>
@@ -335,64 +327,6 @@
   </section>
   <!-- About Area End -->
   <!--? Team -->
-  <section class="team-area section-padding40 fix">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-xl-7 col-lg-8">
-          <div class="section-tittle text-center mb-55">
-            <h2>Community experts</h2>
-          </div>
-        </div>
-      </div>
-      <div class="team-active">
-        <div class="single-cat text-center">
-          <div class="cat-icon">
-            <img src="{% static 'img/gallery/team1.png' %}" alt="" />
-          </div>
-          <div class="cat-cap">
-            <h5><a href="services.html">Mr. Urela</a></h5>
-            <p>The automated process all your website tasks.</p>
-          </div>
-        </div>
-        <div class="single-cat text-center">
-          <div class="cat-icon">
-            <img src="{% static 'img/gallery/team2.png' %}" alt="" />
-          </div>
-          <div class="cat-cap">
-            <h5><a href="services.html">Mr. Uttom</a></h5>
-            <p>The automated process all your website tasks.</p>
-          </div>
-        </div>
-        <div class="single-cat text-center">
-          <div class="cat-icon">
-            <img src="{% static 'img/gallery/team3.png' %}" alt="" />
-          </div>
-          <div class="cat-cap">
-            <h5><a href="services.html">Mr. Shakil</a></h5>
-            <p>The automated process all your website tasks.</p>
-          </div>
-        </div>
-        <div class="single-cat text-center">
-          <div class="cat-icon">
-            <img src="{% static 'img/gallery/team4.png' %}" alt="" />
-          </div>
-          <div class="cat-cap">
-            <h5><a href="services.html">Mr. Arafat</a></h5>
-            <p>The automated process all your website tasks.</p>
-          </div>
-        </div>
-        <div class="single-cat text-center">
-          <div class="cat-icon">
-            <img src="{% static 'img/gallery/team3.png' %}" alt="" />
-          </div>
-          <div class="cat-cap">
-            <h5><a href="services.html">Mr. saiful</a></h5>
-            <p>The automated process all your website tasks.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
   <!-- Services End -->
   <!--? About Area-2 Start -->
   <section class="about-area2 fix pb-padding">
@@ -416,7 +350,7 @@
               techniques to engage effectively with vulnerable children and
               young people.
             </p>
-            <a href="#" class="btn">Join now for Free</a>
+            <a href="{%url 'login'%}" class="btn">Join now for Free</a>
           </div>
         </div>
       </div>
@@ -426,101 +360,53 @@
 </main>
 <footer>
   <div class="footer-wrappper footer-bg">
-    <!-- Footer Start-->
-    <div class="footer-area footer-padding">
-      <div class="container">
-        <div class="row justify-content-between">
-          <div class="col-xl-4 col-lg-5 col-md-4 col-sm-6">
-            <div class="single-footer-caption mb-50">
-              <div class="single-footer-caption mb-30">
-                <!-- logo -->
-                <div class="footer-logo mb-25">
-                  <a href="index.html"
-                    ><img src="{% static 'img/logo/logo2_footer.png' %}" alt=""
-                  /></a>
+<!-- Footer Start -->
+<div class="footer-area footer-padding">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-6 col-lg-6 col-md-8 col-sm-10 text-center">
+                <div class="single-footer-caption mb-50">
+                    <!-- Logo or Site Name -->
+                    <div class="footer-logo mb-25">
+                        <a href="index.html"><img src="{% static 'img/logo/logo2_footer.png' %}" alt="Logo"></a>
+                    </div>
+
+                    <!-- Creator Info -->
+                    <div class="footer-tittle">
+                        <p style="color: #dcdcdc;">Created by Your Name</p>
+                        <p style="color: #dcdcdc;">Email: <a href="mailto:youremail@example.com" style="color: #ffffff;">youremail@example.com</a></p>
+                    </div>
+
+                    <!-- Social -->
+                    <div class="footer-social mt-3">
+                        <a href="https://twitter.com/yourusername"><i class="fab fa-twitter"></i></a>
+                        <a href="https://github.com/yourusername"><i class="fab fa-github"></i></a>
+                        <a href="https://linkedin.com/in/yourusername"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
                 </div>
-                <div class="footer-tittle">
-                  <div class="footer-pera">
-                    <p>
-                      The automated process starts as soon as your clothes go
-                      into the machine.
-                    </p>
-                  </div>
-                </div>
-                <!-- social -->
-                <div class="footer-social">
-                  <a href="#"><i class="fab fa-twitter"></i></a>
-                  <a href="https://bit.ly/sai4ull"
-                    ><i class="fab fa-facebook-f"></i
-                  ></a>
-                  <a href="#"><i class="fab fa-pinterest-p"></i></a>
-                </div>
-              </div>
             </div>
-          </div>
-          <div class="col-xl-2 col-lg-3 col-md-4 col-sm-5">
-            <div class="single-footer-caption mb-50">
-              <div class="footer-tittle">
-                <h4>Our solutions</h4>
-                <ul>
-                  <li><a href="#">Design & creatives</a></li>
-                  <li><a href="#">Telecommunication</a></li>
-                  <li><a href="#">Restaurant</a></li>
-                  <li><a href="#">Programing</a></li>
-                  <li><a href="#">Architecture</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
-            <div class="single-footer-caption mb-50">
-              <div class="footer-tittle">
-                <h4>Support</h4>
-                <ul>
-                  <li><a href="#">Design & creatives</a></li>
-                  <li><a href="#">Telecommunication</a></li>
-                  <li><a href="#">Restaurant</a></li>
-                  <li><a href="#">Programing</a></li>
-                  <li><a href="#">Architecture</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-            <div class="single-footer-caption mb-50">
-              <div class="footer-tittle">
-                <h4>Company</h4>
-                <ul>
-                  <li><a href="#">Design & creatives</a></li>
-                  <li><a href="#">Telecommunication</a></li>
-                  <li><a href="#">Restaurant</a></li>
-                  <li><a href="#">Programing</a></li>
-                  <li><a href="#">Architecture</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
     </div>
-    <!-- footer-bottom area -->
-    <div class="footer-bottom-area">
-      <div class="container">
+</div>
+
+<!-- Footer Bottom Area -->
+<div class="footer-bottom-area">
+    <div class="container">
         <div class="footer-border">
-          <div class="row d-flex align-items-center">
-            <div class="col-xl-12">
-              <div class="footer-copy-right text-center">
-                <p>
-                </p>
-              </div>
+            <div class="row d-flex align-items-center">
+                <div class="col-xl-12">
+                    <div class="footer-copy-right text-center">
+                        <p>
+                            &copy; <script>document.write(new Date().getFullYear());</script> YourSiteName. All rights reserved.
+                        </p>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-    <!-- Footer End-->
-  </div>
-</footer>
+</div>
+<!-- Footer End -->
+
 <!-- Scroll Up -->
 <div id="back-top">
   <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
