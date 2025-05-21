@@ -3,6 +3,11 @@ from . import models
 def get_course_list():
     course_q_list = models.CourseModel.objects.filter(status__in=[models.PublishStatus.PUBLISHED,models.PublishStatus.COMING_SOON])
     return course_q_list
+
+def get_course_subject_list(subject):
+    course_q_list = models.CourseModel.objects.select_related('subject').filter(status__in=[models.PublishStatus.PUBLISHED,models.PublishStatus.COMING_SOON],subject__title=subject)
+    return course_q_list
+
 def get_course_detail(course_public_id):
     if not course_public_id:
         return None

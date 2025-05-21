@@ -55,6 +55,18 @@ def get_display_name(instance):
 class CourseSubject(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(blank=True,null=True)
+    image = CloudinaryField('image',blank=True,null=True,
+                            
+                            public_id_prefix=get_public_id_prefix,
+
+                            display_name=get_display_name,
+                            
+                            tags=['course_subject'])
+    @property
+    def display_image(self):
+        image_url = helpres.get_cloudinary_image_obj(self,as_html=False,field_name='image')
+       
+        return image_url
     def __str__(self):
         return self.title
 class CourseModel(models.Model):

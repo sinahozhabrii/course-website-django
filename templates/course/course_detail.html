@@ -1,69 +1,205 @@
-
 <!DOCTYPE html>
 <html lang="fa" dir="ltr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>جزئیات کورس</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Bootstrap RTL -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet" />
+
+  <!-- فونت فارسی و آیکون -->
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn-font@latest/dist/font-face.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+
   <style>
     body {
-      background-color:rgb(250, 248, 250);
+      font-family: 'Vazirmatn', sans-serif;
+      background: #f9f9ff;
+      color: #222;
+      margin: 0;
+      padding: 0;
     }
+
     .course-sidebar {
+      background: #fff;
+      border-left: 1px solid #e5e5e5;
       height: 100vh;
-      overflow-y: auto;
-      position: sticky;
-      top: 0;
+      padding: 2rem 1.5rem;
+      box-shadow: 0 0 12px rgba(0,0,0,0.03);
+    }
+
+    .sidebar-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #2c3e50;
+      border-bottom: 2px solid #0d6efd;
+      padding-bottom: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .accordion-item {
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(to right, #f0f4ff, #ffffff);
+      margin-bottom: 1rem;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+      transition: all 0.2s ease-in-out;
+    }
+
+    .accordion-item:hover {
+      transform: translateY(-2px);
+    }
+
+    .accordion-button {
+      font-weight: 600;
+      background: transparent;
+      color: #333;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .accordion-button::before {
+      content: "🎬";
+      margin-left: 0.5rem;
+      font-size: 1.2rem;
+    }
+
+    .accordion-button:not(.collapsed) {
+      background-color: #0d6efd;
+      color: #fff;
+    }
+
+    .accordion-body {
+      padding: 1rem 1.5rem;
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+#videoDetailContainer {
+  background: #fff;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  animation: fadeInUp 0.4s ease-in-out;
+  min-height: 450px;
+  overflow-y: auto;
+  /* حذف کلاس video-wrapper از اینجا */
+}
+
+#videoDetailContainer .video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  overflow: hidden;
+  margin-bottom: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  background: #000;
+}
+
+#videoDetailContainer .video-wrapper iframe,
+#videoDetailContainer .video-wrapper video,
+#videoDetailContainer .video-wrapper embed,
+#videoDetailContainer .video-wrapper object {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 16px;
+}
+
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .course-sidebar {
+        height: auto;
+        position: static;
+        padding: 1rem;
+        border-left: none;
+      }
+
+      #videoDetailContainer {
+        padding: 1rem;
+        min-height: 300px;
+      }
+
+      #videoDetailContainer .video-wrapper {
+        padding-bottom: 56.25%;
+      }
     }
   </style>
 </head>
 <body hx-headers='{"X-CSRFToken": "{{csrf_token}}"}'>
-  
+
   <div class="container-fluid">
     <div class="row">
-      
-      <!-- لیست جلسات (سمت چپ) -->
-      <div class="col-md-3 bg-white p-3 border-end course-sidebar">
-        <h5 class="mb-3">جلسات کورس</h5>
+      <!-- Sidebar جلسات -->
+      <div class="col-md-3 course-sidebar">
+        <a href="{%url 'course-list'%}" class="btn btn-primary d-flex align-items-center justify-content-center mb-4" style="border-radius: 12px; font-weight: 600;">
+  <i class="bi bi-arrow-left fs-5 me-2"></i> بازگشت
+</a>
+
+        <div class="sidebar-title">فهرست جلسات</div>
         <div class="accordion" id="lessonAccordion">
-          
           {% for lesson in lessons %}
           <div class="accordion-item">
-    <h2 class="accordion-header" id="heading{{ forloop.counter }}">
-      <button 
-      class="accordion-button collapsed"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#collapse{{ forloop.counter }}"
-      aria-expanded="false"
-      aria-controls="collapse{{ forloop.counter }}"
-      
-      hx-get="{{ lesson.path }}"
-      hx-target="#videoDetailContainer"
-      hx-swap="innerHTML"
-      >
-      {{ lesson.title }}
-    </button>
-  </h2>
-  <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="heading{{ forloop.counter }}">
-    <div class="accordion-body">
-      {{ lesson.description }}
+            <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+              <button 
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapse{{ forloop.counter }}"
+                aria-expanded="false"
+                aria-controls="collapse{{ forloop.counter }}"
+                hx-get="{{ lesson.path }}"
+                hx-target="#videoDetailContainer"
+                hx-swap="innerHTML"
+              >
+                {{ lesson.title }}
+              </button>
+            </h2>
+            <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="heading{{ forloop.counter }}">
+              <div class="accordion-body">
+                {{ lesson.description }}
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- محتوای جلسه -->
+      <div class="col-md-9 p-4">
+        <div id="videoDetailContainer" class="video-wrapper mb-4">
+          <p style="text-align:center; color:#888; font-size:1.2rem; margin-top: 3rem;">
+            لطفاً یکی از جلسات را انتخاب کنید
+          </p>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-{% endfor %}
-</div>
-</div>
 
-<!-- بخش نمایش ویدیو (سمت راست) -->
-<div class="col-md-9 p-4">
-  <div id="videoDetailContainer" class="video-wrapper mb-4">
-  </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-{%include 'js.html' %}
-
-
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  {% include 'js.html' %}
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // کلیک خودکار اولین جلسه با تاخیر 100 میلی ثانیه
+      const firstLessonButton = document.querySelector('.accordion-button[hx-get]');
+      if (firstLessonButton) {
+        setTimeout(() => {
+          firstLessonButton.click();
+        }, 100);
+      }
+    });
+  </script>
 </body>
 </html>
