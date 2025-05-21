@@ -10,7 +10,20 @@ def course_list_view(request):
     courses = services.get_course_list()
     
     # return JsonResponse({'id':[x.path for x in courses]})
-    paginator = Paginator(courses, 2)  
+    paginator = Paginator(courses, 6)  
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request,'course/course_list.html',{'courses':page_obj})
+
+def course_list_subject_view(request,subject):
+    courses = services.get_course_subject_list(subject)
+    paginator = Paginator(courses, 6)  
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request,'course/course_list.html',{'courses':page_obj})
+    
+    # return JsonResponse({'id':[x.path for x in courses]})
+    paginator = Paginator(courses, 6)  
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request,'course/course_list.html',{'courses':page_obj})
@@ -40,5 +53,5 @@ def lesson_detail_view(request,course_public_id,lesson_public_id):
         template_name = 'course/lesson_detail.html'
    
     # return JsonResponse({'id':lesson_obj.id})
-    video_html = helpres.get_cloudinary_video_obj(lesson_obj,as_html=True,field_name='video',width=1100 )
+    video_html = helpres.get_cloudinary_video_obj(lesson_obj,as_html=True,field_name='video',width=1035 )
     return render(request,template_name,{'lesson':lesson_obj,'video_html':video_html})
